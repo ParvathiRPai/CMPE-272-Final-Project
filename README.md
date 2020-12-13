@@ -60,6 +60,7 @@ Our application is called Relief Fund and it has three features –
 * Conatiner Images in aws EC2
  ![](screenshots/containerimages.png)
 * For CI/CD we have made use of AWS codebuild
+* ![](screenshots/codebuild.png)
 #### For Front-end setup
 ##### Install Dependencies
 `npm install`
