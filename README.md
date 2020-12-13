@@ -59,7 +59,7 @@ Our application is called Relief Fund and it has three features –
   ![](screenshots/containers.png)
 * Conatiner Images in aws EC2
  ![](screenshots/containerimages.png)
-
+* For CI/CD we have made use of AWS codebuild
 #### For Front-end setup
 ##### Install Dependencies
 `npm install`
@@ -76,10 +76,13 @@ Use these varaibles in AppWithRouterAccess.js
 #### For Back-end setup
 * Update application-properties with AWS resources information
 
+#### Security
+Added https:
+![](screenshots/security.png)
 #### Run application
 * For Frontend
     `npm start`
-    * URI: http://localhost:3000
+    * URI: https://localhost:3000
 * For Backend
     * mvn clean package
     * java -jar target/<jar filename> 
