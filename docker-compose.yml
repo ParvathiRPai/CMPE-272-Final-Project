@@ -1,0 +1,57 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+
+version: '3.8'
+
+# Define services
+services:
+  # App backend service
+
+  backend-ser:
+    # Configuration for building the docker image for the backend service
+    build:
+      context: backend # Use an image built from the specified dockerfile in the `backend` directory.
+      dockerfile: Dockerfile
+    environment:
+      - CLOUDFRONT_URL=${CLOUDFRONT_URL}
+      - CLOUDFRONT_ID=${CLOUDFRONT_ID}
+      - PRIMARY_BUCKET=${PRIMARY_BUCKET}
+      - SNS_TOPIC_ARN=${SNS_TOPIC_ARN}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+      - MARIADB_INSTANCE=${MARIADB_INSTANCE}
+      - MARIADB_USERNAME=${MARIADB_USERNAME}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+    expose:
+      - "8080"
+    ports:
+      - "5010:8080" # Forward the exposed port 8080 on the container to port 5010 on the host machine
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend-net
+      - frontend-net
+
+  # Frontend Service
+
+  frontend-ser:
+    build:
+      context: frontend # Use an image built from the specified dockerfile in the `frontend` directory.
+      dockerfile: Dockerfile
+    expose:
+      - "3000"
+    ports:
+      - "5000:3000" # Forward the exposed port 3000 on the container to port 5000 on the host machine
+    environment:
+      - REACT_APP_OKTA_CLIENT_ID=${REACT_APP_OKTA_CLIENT_ID}
+      - REACT_APP_OKTA_ORG_URL=${REACT_APP_OKTA_ORG_URL}
+      - REACT_APP_OKTA_API_TOKEN=${REACT_APP_OKTA_API_TOKEN}
+      - REACT_APP_API_DOMAIN=${REACT_APP_API_DOMAIN}
+      - REACT_APP_PAYPAL_CLIENT_ID=${REACT_APP_PAYPAL_CLIENT_ID}
+      - REACT_APP_API_PORT=${REACT_APP_API_PORT}
+    depends_on:
+      - backend-ser
+    networks:
+      - frontend-net
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend-net:
+  frontend-net:
