@@ -22,6 +22,9 @@ Our application is called Relief Fund and it has three features –
 ![](screenshots/architecture.png)
 
 #### Application UI screenshots
+* Video explanation - https://youtu.be/xqQx2U5MEkE
+* Link to the website - http://relieffund.parvathipai.com/
+  
 ![](screenshots/home.png)
 ![](screenshots/spotDonate.png)
 ![](screenshots/login.png)
